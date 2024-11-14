@@ -24,7 +24,7 @@ class SQLite3
 		self::$db->exec(self::CREATE_TABLE);
 	}
 
-	public static function asyncExecute(string $method, array $params, Closure $todo): void
+	public static function asyncExecute(string $method, array $params, ?Closure $todo = null): void
 	{
 		Main::getInstance()->getServer()->getScheduler()->scheduleAsyncTask(
 			new AsyncQueryToDB(self::$path, $method, $params, $todo)

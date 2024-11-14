@@ -11,15 +11,8 @@ class PlayerPrefixes
 
 	public function __construct(private string $nickname)
 	{
-		$this->init();
-	}
-
-	private function init(): void
-	{
 		SQLite3::asyncExecute("createPlayer", [$this->nickname]);
-		// $stmt = PlayersManager::getInstance()->db->prepare(SQLite3::GET_PREFIX);
-		// $stmt->bindValue(":nickname", $this->nickname);
-		// $this->prefix = $stmt->execute()->fetchArray(SQLITE3_ASSOC)[0];
+		// get and save prefix
 	}
 
 	public function getPrefix(): string

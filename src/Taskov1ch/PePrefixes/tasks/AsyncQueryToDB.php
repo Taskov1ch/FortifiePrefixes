@@ -14,7 +14,7 @@ class AsyncQueryToDB extends AsyncTask
 		private string $path,
 		private string $method,
 		private array $params,
-		private Closure $todo
+		private ?Closure $todo // Сосать непоточность, сосать потокобезопасность!
 	) {}
 
 	public function onRun()
@@ -27,8 +27,10 @@ class AsyncQueryToDB extends AsyncTask
 
 	public function onCompletion(Server $server)
 	{
-		$result = $this->getResult();
-		($this->todo)($result);
+		if ($todo = $this->todo) {
+			$result = $this->getResult();
+			$todo($result);
+		}
 	}
 
 }
