@@ -11,7 +11,9 @@ class PlayersManager
 
 	private array $players = [];
 
-	public function __construct(private Main $main) {}
+	public function __construct(private Main $main) {
+		$this->setInstance($this);
+	}
 
 	public function get(string $nickname): void
 	{
@@ -21,7 +23,7 @@ class PlayersManager
 			return $this->players[$nickname];
 		}
 
-		$this->players[$nickname] = new PlayerPrefixes($nickname);
+		$this->players[$nickname] = new PrefixPlayer($nickname);
 		return $this->get($nickname);
 	}
 

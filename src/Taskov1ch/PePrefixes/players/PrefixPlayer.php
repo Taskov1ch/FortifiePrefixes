@@ -4,7 +4,7 @@ namespace Taskov1ch\PePrefixes\players;
 
 use Taskov1ch\PePrefixes\provider\SQLite3;
 
-class PlayerPrefixes
+class PrefixPlayer
 {
 
 	private string $prefix;

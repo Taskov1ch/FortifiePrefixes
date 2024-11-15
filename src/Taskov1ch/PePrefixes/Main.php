@@ -23,9 +23,6 @@ class Main extends PluginBase
 		$lang = new BaseLang("prefixes_lang", $this->getDataFolder());
 		var_dump($lang->translateString("pe_prefixes.setprefix.usage"));
 
-		$date = function() {
-			var_dump("Hello");
-		};
 	}
 
 }

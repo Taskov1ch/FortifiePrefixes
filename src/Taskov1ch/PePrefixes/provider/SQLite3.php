@@ -38,4 +38,11 @@ class SQLite3
 		$stmt->execute();
 	}
 
+	public static function getPrefix(string $nickname): string
+	{
+		$stmt = self::$db->prepare(self::GET_PREFIX);
+		$stmt->bindValue(":nickname", $nickname);
+		return $stmt->execute()->fetchArray()[0];
+	}
+
 }
