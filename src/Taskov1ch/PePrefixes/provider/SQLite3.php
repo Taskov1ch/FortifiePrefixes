@@ -12,10 +12,10 @@ class SQLite3
 	public static string $path;
 	public static SQLite $db;
 
-	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT, prefix TEXT)";
+	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT PRIMARY KEY, prefix TEXT DEFAULT '')";
 	const CREATE_PLAYER = "INSERT OR IGNORE INTO prefixes (nickname) VALUES (:nickname)";
 	const SET_PREFIX = "UPDATE prefixes SET prefix = :prefix WHERE nickname = :nickname";
-	const GET_PREFIX = "SELECT prefix FROM prefixes WHERE nickname = :nickname LIMIT = 1";
+	const GET_PREFIX = "SELECT prefix FROM prefixes WHERE nickname = :nickname LIMIT 1";
 
 	public static function init(?string $path = null): void
 	{
@@ -33,16 +33,27 @@ class SQLite3
 
 	public static function createPlayer(string $nickname): void
 	{
+		$nickname = strtolower($nickname);
 		$stmt = self::$db->prepare(self::CREATE_PLAYER);
 		$stmt->bindValue(":nickname", $nickname);
 		$stmt->execute();
 	}
 
-	public static function getPrefix(string $nickname): string
+	public static function getPrefix(string $nickname): ?string
 	{
+		$nickname = strtolower($nickname);
 		$stmt = self::$db->prepare(self::GET_PREFIX);
 		$stmt->bindValue(":nickname", $nickname);
-		return $stmt->execute()->fetchArray()[0];
+		$data = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+		return $data["prefix"] ?? null;
 	}
 
+	public static function setPrefix(string $nickname, string $prefix): void
+	{
+		$nickname = strtolower($nickname);
+		$stmt = self::$db->prepare(self::SET_PREFIX);
+		$stmt->bindValue(":nickname", $nickname);
+		$stmt->bindValue(":prefix", $prefix);
+		$stmt->execute();
+	}
 }

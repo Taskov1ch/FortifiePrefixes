@@ -4,7 +4,6 @@ namespace Taskov1ch\PePrefixes\utils;
 
 trait SingletonTrait
 {
-
 	private static self $instance;
 
 	private static function setInstance(self $instance): void
@@ -16,5 +15,4 @@ trait SingletonTrait
 	{
 		return self::$instance;
 	}
-
 }

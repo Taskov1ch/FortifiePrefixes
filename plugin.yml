@@ -2,3 +2,16 @@ name: PePrefixes
 version: dev
 api: 3.0.0
 main: Taskov1ch\PePrefixes\Main
+author: Taskov1ch
+website: taskovich.pro
+load: POSTWORLD
+
+permissions:
+  pe_prefixes.*:
+    children:
+      pe_prefixes.default:
+        default: op
+      pe_prefixes.admin:
+        default: op
+      pe_prefixes.ready.prefixes:
+        default: op

@@ -9,7 +9,6 @@ use Taskov1ch\PePrefixes\provider\SQLite3;
 
 class AsyncQueryToDB extends AsyncTask
 {
-
 	public function __construct(
 		private string $path,
 		private string $method,
@@ -20,8 +19,8 @@ class AsyncQueryToDB extends AsyncTask
 	public function onRun()
 	{
 		$method = $this->method;
-		SQLite3::init();
-		$result = SQLite3::$method($this->params);
+		SQLite3::init($this->path);
+		$result = SQLite3::$method(...$this->params);
 		$this->setResult($result);
 	}
 
