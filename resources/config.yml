@@ -3,3 +3,13 @@ limit: 20
 
 # Частота сохранения данных в БД (в минутах)
 save: 1
+
+database:
+  provider: mysql
+  sqlite:
+    path: database.db
+  mysql:
+    host: localhost:8008
+    username: root
+    password: qwerty123
+    scheme: prefixes

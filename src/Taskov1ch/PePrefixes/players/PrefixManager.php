@@ -4,7 +4,7 @@ namespace Taskov1ch\PePrefixes\players;
 
 use pocketmine\utils\Config;
 use Taskov1ch\PePrefixes\Main;
-use Taskov1ch\PePrefixes\provider\SQLite3;
+use Taskov1ch\PePrefixes\providers\Provider;
 use Taskov1ch\PePrefixes\utils\SingletonTrait;
 
 class PrefixManager
@@ -44,7 +44,7 @@ class PrefixManager
 	public function saveAll(): void
 	{
 		foreach ($this->getAll() as $nickname => $prefix) {
-			SQLite3::setPrefix($nickname, $prefix->getPrefix());
+			Provider::getInstance()->getDataBase()->setPrefix($nickname, $prefix->getPrefix());
 		}
 	}
 }

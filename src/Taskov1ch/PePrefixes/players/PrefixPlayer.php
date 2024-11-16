@@ -5,7 +5,7 @@ namespace Taskov1ch\PePrefixes\players;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
 use Taskov1ch\PePrefixes\Main;
-use Taskov1ch\PePrefixes\provider\SQLite3;
+use Taskov1ch\PePrefixes\providers\Provider;
 
 class PrefixPlayer
 {
@@ -13,8 +13,8 @@ class PrefixPlayer
 
 	public function __construct(private string $nickname)
 	{
-		SQLite3::asyncExecute("createPlayer", [$this->nickname]);
-		SQLite3::asyncExecute("getPrefix", [$this->nickname], function ($prefix): void
+		Provider::getInstance()->asyncExecute("createPlayer", [$this->nickname]);
+		Provider::getInstance()->asyncExecute("getPrefix", [$this->nickname], function ($prefix): void
 			{
 				$this->prefix = $prefix;
 				$this->update();

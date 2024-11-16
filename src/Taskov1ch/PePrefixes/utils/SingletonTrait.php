@@ -6,7 +6,7 @@ trait SingletonTrait
 {
 	private static self $instance;
 
-	private static function setInstance(self $instance): void
+	protected function setInstance(self $instance): void
 	{
 		self::$instance = $instance;
 	}

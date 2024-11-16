@@ -5,12 +5,12 @@ namespace Taskov1ch\PePrefixes\tasks;
 use Closure;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
-use Taskov1ch\PePrefixes\provider\SQLite3;
+use Taskov1ch\PePrefixes\providers\Provider;
 
 class AsyncQueryToDB extends AsyncTask
 {
 	public function __construct(
-		private string $path,
+		private array $config,
 		private string $method,
 		private array $params,
 		private ?Closure $todo // Сосать непоточность, сосать потокобезопасность!
@@ -18,10 +18,8 @@ class AsyncQueryToDB extends AsyncTask
 
 	public function onRun()
 	{
-		$method = $this->method;
-		SQLite3::init($this->path);
-		$result = SQLite3::$method(...$this->params);
-		$this->setResult($result);
+		$db = (new Provider($this->config))->getDataBase();
+		call_user_func_array([$db->getInstance(), $this->method], $this->params);
 	}
 
 	public function onCompletion(Server $server)

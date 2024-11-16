@@ -6,7 +6,7 @@ use pocketmine\lang\BaseLang;
 use pocketmine\plugin\PluginBase;
 use Taskov1ch\PePrefixes\listener\EventsListener;
 use Taskov1ch\PePrefixes\players\PrefixManager;
-use Taskov1ch\PePrefixes\provider\SQLite3;
+use Taskov1ch\PePrefixes\providers\Provider;
 use Taskov1ch\PePrefixes\utils\SingletonTrait;
 
 class Main extends PluginBase
@@ -15,6 +15,7 @@ class Main extends PluginBase
 
 	private PrefixManager $manager;
 	private BaseLang $lang;
+	private Provider $provider;
 
 	public function onEnable(): void
 	{
@@ -25,7 +26,7 @@ class Main extends PluginBase
 		$this->setInstance($this);
 		$this->manager = new PrefixManager();
 		$this->lang = new BaseLang("config", $this->getDataFolder());
-		SQLite3::init();
+		$this->provider = new Provider($this->getConfig()->get("database"));
 
 		foreach ($this->getResources() as $resource) {
 			$this->saveResource($resource->getFilename());
