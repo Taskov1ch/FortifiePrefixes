@@ -1,6 +1,6 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\exceptions;
+namespace FortifiePE\Prefixes\exceptions;
 
 use Exception;
 

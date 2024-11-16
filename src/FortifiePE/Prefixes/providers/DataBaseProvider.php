@@ -1,8 +1,8 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\providers;
+namespace FortifiePE\Prefixes\providers;
 
-use Taskov1ch\PePrefixes\utils\SingletonTrait;
+use FortifiePE\Prefixes\utils\SingletonTrait;
 
 abstract class DataBaseProvider
 {

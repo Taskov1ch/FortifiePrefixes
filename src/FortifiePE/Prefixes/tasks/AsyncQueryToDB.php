@@ -1,11 +1,11 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\tasks;
+namespace FortifiePE\Prefixes\tasks;
 
 use Closure;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
-use Taskov1ch\PePrefixes\providers\Provider;
+use FortifiePE\Prefixes\providers\Provider;
 
 class AsyncQueryToDB extends AsyncTask
 {

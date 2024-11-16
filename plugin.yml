@@ -1,17 +1,17 @@
-name: PePrefixes
+name: FortifePrefixes
 version: dev
 api: 3.0.0
-main: Taskov1ch\PePrefixes\Main
+main: FortifePE\Prefixes\Main
 author: Taskov1ch
 website: taskovich.pro
 load: POSTWORLD
 
 permissions:
-  pe_prefixes.*:
+  prefifex.*:
     children:
-      pe_prefixes.default:
+      prefifex.default:
         default: op
-      pe_prefixes.admin:
+      prefifex.admin:
         default: op
-      pe_prefixes.ready.prefixes:
+      prefifex.ready.prefixes:
         default: op

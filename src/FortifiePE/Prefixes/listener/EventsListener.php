@@ -1,12 +1,12 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\listener;
+namespace FortifiePE\Prefixes\listener;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\Server;
-use Taskov1ch\PePrefixes\players\PrefixManager;
+use FortifiePE\Prefixes\players\PrefixManager;
 
 class EventsListener implements Listener
 {

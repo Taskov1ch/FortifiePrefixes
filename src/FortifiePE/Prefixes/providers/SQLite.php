@@ -1,9 +1,9 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\providers;
+namespace FortifiePE\Prefixes\providers;
 
 use SQLite3;
-use Taskov1ch\PePrefixes\Main;
+use FortifiePE\Prefixes\Main;
 
 class SQLite extends DataBaseProvider
 {

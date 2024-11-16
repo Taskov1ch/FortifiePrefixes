@@ -1,13 +1,13 @@
 <?php
 
-namespace Taskov1ch\PePrefixes;
+namespace FortifiePE\Prefixes;
 
 use pocketmine\lang\BaseLang;
 use pocketmine\plugin\PluginBase;
-use Taskov1ch\PePrefixes\listener\EventsListener;
-use Taskov1ch\PePrefixes\players\PrefixManager;
-use Taskov1ch\PePrefixes\providers\Provider;
-use Taskov1ch\PePrefixes\utils\SingletonTrait;
+use FortifiePE\Prefixes\listener\EventsListener;
+use FortifiePE\Prefixes\players\PrefixManager;
+use FortifiePE\Prefixes\providers\Provider;
+use FortifiePE\Prefixes\utils\SingletonTrait;
 
 class Main extends PluginBase
 {

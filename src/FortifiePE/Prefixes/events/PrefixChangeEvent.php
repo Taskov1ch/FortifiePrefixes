@@ -1,6 +1,6 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\events;
+namespace FortifiePE\Prefixes\events;
 
 use pocketmine\event\Cancellable;
 use pocketmine\event\Event;

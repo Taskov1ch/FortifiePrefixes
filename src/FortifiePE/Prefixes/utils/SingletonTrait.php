@@ -1,6 +1,6 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\utils;
+namespace FortifiePE\Prefixes\utils;
 
 trait SingletonTrait
 {

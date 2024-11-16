@@ -1,12 +1,12 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\providers;
+namespace FortifiePE\Prefixes\providers;
 
 use Closure;
-use Taskov1ch\PePrefixes\exceptions\ProviderNotFound;
-use Taskov1ch\PePrefixes\Main;
-use Taskov1ch\PePrefixes\tasks\AsyncQueryToDB;
-use Taskov1ch\PePrefixes\utils\SingletonTrait;
+use FortifiePE\Prefixes\exceptions\ProviderNotFound;
+use FortifiePE\Prefixes\Main;
+use FortifiePE\Prefixes\tasks\AsyncQueryToDB;
+use FortifiePE\Prefixes\utils\SingletonTrait;
 
 class Provider
 {

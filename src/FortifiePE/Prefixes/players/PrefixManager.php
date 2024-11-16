@@ -1,11 +1,11 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\players;
+namespace FortifiePE\Prefixes\players;
 
 use pocketmine\utils\Config;
-use Taskov1ch\PePrefixes\Main;
-use Taskov1ch\PePrefixes\providers\Provider;
-use Taskov1ch\PePrefixes\utils\SingletonTrait;
+use FortifiePE\Prefixes\Main;
+use FortifiePE\Prefixes\providers\Provider;
+use FortifiePE\Prefixes\utils\SingletonTrait;
 
 class PrefixManager
 {

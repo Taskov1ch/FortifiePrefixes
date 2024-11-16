@@ -1,11 +1,11 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\providers;
+namespace FortifiePE\Prefixes\providers;
 
 use Exception;
 use mysqli;
 use pocketmine\Server;
-use Taskov1ch\PePrefixes\Main;
+use FortifiePE\Prefixes\Main;
 
 class MySQL extends DataBaseProvider
 {

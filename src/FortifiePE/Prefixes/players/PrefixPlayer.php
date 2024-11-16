@@ -1,12 +1,12 @@
 <?php
 
-namespace Taskov1ch\PePrefixes\players;
+namespace FortifiePE\Prefixes\players;
 
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
-use Taskov1ch\PePrefixes\events\PrefixChangeEvent;
-use Taskov1ch\PePrefixes\Main;
-use Taskov1ch\PePrefixes\providers\Provider;
+use FortifiePE\Prefixes\events\PrefixChangeEvent;
+use FortifiePE\Prefixes\Main;
+use FortifiePE\Prefixes\providers\Provider;
 
 class PrefixPlayer
 {
