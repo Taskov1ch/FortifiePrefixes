@@ -21,7 +21,8 @@ class Provider
 		switch ($provider) {
 			case "sqlite":
 			case "sqlite3":
-				$this->db = new SQLite($config["sqlite"]["path"]);
+				$data = $config["sqlite"];
+				$this->db = new SQLite($data["force_path"] ?? Main::getInstance()->getDataFolder() . $data["path"]);
 				break;
 
 			case "mysql":
@@ -47,8 +48,14 @@ class Provider
 
 	public function asyncExecute(string $method, array $params, ?Closure $todo = null): void
 	{
+		$config = $this->config;
+
+		if ($this->db instanceof SQLite) {
+			$config["sqlite"]["force_path"] = $this->db->getPath();
+		}
+
 		Main::getInstance()->getServer()->getScheduler()->scheduleAsyncTask(
-			new AsyncQueryToDB($this->config, $method, $params, $todo)
+			new AsyncQueryToDB($config, $method, $params, $todo)
 		);
 	}
 }

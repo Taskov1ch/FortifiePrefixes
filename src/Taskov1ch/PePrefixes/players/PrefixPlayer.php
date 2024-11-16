@@ -4,6 +4,7 @@ namespace Taskov1ch\PePrefixes\players;
 
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
+use Taskov1ch\PePrefixes\events\PrefixChangeEvent;
 use Taskov1ch\PePrefixes\Main;
 use Taskov1ch\PePrefixes\providers\Provider;
 
@@ -31,6 +32,13 @@ class PrefixPlayer
 	{
 		if (str_starts_with($prefix, "!")) {
 			$prefix = PrefixManager::getInstance()->getReadyPrefix(mb_substr($prefix, 1));
+		}
+
+		$event = new PrefixChangeEvent($this->nickname, $prefix, $this->prefix);
+		Server::getInstance()->getPluginManager()->callEvent($event);
+
+		if ($event->isCancelled()) {
+			return;
 		}
 
 		$this->prefix = $prefix;

@@ -7,8 +7,8 @@ use Taskov1ch\PePrefixes\Main;
 
 class SQLite extends DataBaseProvider
 {
-	public string $path;
-	public SQLite3 $db;
+	private string $path;
+	private SQLite3 $db;
 
 	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT PRIMARY KEY, prefix TEXT)";
 	const CREATE_PLAYER = "INSERT OR IGNORE INTO prefixes (nickname) VALUES (?)";
@@ -64,5 +64,10 @@ class SQLite extends DataBaseProvider
 		$stmt->bindValue(2, $nickname, SQLITE3_TEXT);
 		$stmt->execute();
 		$stmt->close();
+	}
+
+	public function getPath(): string
+	{
+		return $this->path;
 	}
 }

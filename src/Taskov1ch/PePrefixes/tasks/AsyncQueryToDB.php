@@ -18,8 +18,9 @@ class AsyncQueryToDB extends AsyncTask
 
 	public function onRun()
 	{
-		$db = (new Provider($this->config))->getDataBase();
-		call_user_func_array([$db->getInstance(), $this->method], $this->params);
+		$db = (new Provider(get_object_vars($this->config)))->getDataBase();
+		$result = call_user_func_array([$db->getInstance(), $this->method], get_object_vars($this->params));
+		$this->setResult($result);
 	}
 
 	public function onCompletion(Server $server)
