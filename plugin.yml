@@ -1,7 +1,7 @@
 name: FortifePrefixes
 version: dev
 api: 3.0.0
-main: FortifePE\Prefixes\Main
+main: FortifiePE\Prefixes\Main
 author: Taskov1ch
 website: taskovich.pro
 load: POSTWORLD
