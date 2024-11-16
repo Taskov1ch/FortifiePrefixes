@@ -38,7 +38,7 @@ class SQLite extends DataBaseProvider
 	{
 		$nickname = strtolower($nickname);
 		$stmt = $this->db->prepare(self::CREATE_PLAYER);
-		$stmt->bindValue(1, $nickname, SQLITE3_TEXT);
+		$stmt->bindValue(1, $nickname);
 		$stmt->execute();
 		$stmt->close();
 	}
@@ -47,7 +47,7 @@ class SQLite extends DataBaseProvider
 	{
 		$nickname = strtolower($nickname);
 		$stmt = $this->db->prepare(self::GET_PREFIX);
-		$stmt->bindValue(1, $nickname, SQLITE3_TEXT);
+		$stmt->bindValue(1, $nickname);
 		$result = $stmt->execute();
 
 		$data = $result->fetchArray(SQLITE3_ASSOC);
@@ -56,12 +56,12 @@ class SQLite extends DataBaseProvider
 		return $data["prefix"] ?? null;
 	}
 
-	public function setPrefix(string $nickname, string $prefix): void
+	public function setPrefix(string $nickname, ?string $prefix): void
 	{
 		$nickname = strtolower($nickname);
 		$stmt = $this->db->prepare(self::SET_PREFIX);
-		$stmt->bindValue(1, $prefix, SQLITE3_TEXT);
-		$stmt->bindValue(2, $nickname, SQLITE3_TEXT);
+		$stmt->bindValue(1, $prefix);
+		$stmt->bindValue(2, $nickname);
 		$stmt->execute();
 		$stmt->close();
 	}

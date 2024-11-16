@@ -2,11 +2,13 @@
 
 namespace FortifiePE\Prefixes\listener;
 
+use FortifiePE\Prefixes\events\PrefixChangeEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\Server;
 use FortifiePE\Prefixes\players\PrefixManager;
+use pocketmine\event\player\PlayerPreLoginEvent;
 
 class EventsListener implements Listener
 {
@@ -22,6 +24,12 @@ class EventsListener implements Listener
 
 	public function onJoin(PlayerJoinEvent $event): void
 	{
-		$prefix = PrefixManager::getInstance()->getPlayer($event->getPlayer()->getName());
+		$player = PrefixManager::getInstance()->getPlayer($event->getPlayer()->getName());
+		$player->update();
+	}
+
+	public function onPreLogin(PlayerPreLoginEvent $event): void
+	{
+		PrefixManager::getInstance()->getPlayer($event->getPlayer()->getName());
 	}
 }

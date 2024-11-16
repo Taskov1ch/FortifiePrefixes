@@ -2,6 +2,12 @@
 
 namespace FortifiePE\Prefixes;
 
+use FortifiePE\Prefixes\commands\AddReadyPreffix;
+use FortifiePE\Prefixes\commands\DeletePrefix;
+use FortifiePE\Prefixes\commands\DeletePrefixFrom;
+use FortifiePE\Prefixes\commands\SetPrefix;
+use FortifiePE\Prefixes\commands\SetPrefixTo;
+use FortifiePE\Prefixes\tasks\SaveTask;
 use pocketmine\lang\BaseLang;
 use pocketmine\plugin\PluginBase;
 use FortifiePE\Prefixes\listener\EventsListener;
@@ -24,15 +30,25 @@ class Main extends PluginBase
 		}
 
 		$this->setInstance($this);
-		$this->manager = new PrefixManager();
-		$this->lang = new BaseLang("config", $this->getDataFolder());
-		$this->provider = new Provider($this->getConfig()->get("database"));
 
 		foreach ($this->getResources() as $resource) {
 			$this->saveResource($resource->getFilename());
 		}
 
+		$config = $this->getConfig();
+		$this->manager = new PrefixManager();
+		$this->lang = new BaseLang("config", $this->getDataFolder());
+		$this->provider = new Provider($config->get("database"));
+
 		$this->getServer()->getPluginManager()->registerEvents(new EventsListener(), $this);
+		$this->getServer()->getScheduler()->scheduleRepeatingTask(new SaveTask($this), 20 * 60 * $config->get("save"));
+		$this->getServer()->getCommandMap()->registerAll($this->getName(), [
+			new AddReadyPreffix($this),
+			new DeletePrefix($this),
+			new DeletePrefixFrom($this),
+			new SetPrefix($this),
+			new SetPrefixTo($this)
+		]);
 	}
 
 	public function onDisable(): void

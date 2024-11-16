@@ -2,16 +2,18 @@ name: FortifePrefixes
 version: dev
 api: 3.0.0
 main: FortifiePE\Prefixes\Main
-author: Taskov1ch
+authors:
+  - Taskov1ch
+  - FortifiePE
 website: taskovich.pro
 load: POSTWORLD
 
 permissions:
-  prefifex.*:
+  prefixes.*:
     children:
-      prefifex.default:
+      prefixes.default:
         default: op
-      prefifex.admin:
+      prefixes.admin:
         default: op
-      prefifex.ready.prefixes:
+      prefixes.ready_prefixes:
         default: op

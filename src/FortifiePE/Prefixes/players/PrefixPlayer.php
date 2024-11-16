@@ -10,6 +10,7 @@ use FortifiePE\Prefixes\providers\Provider;
 
 class PrefixPlayer
 {
+	public ?string $old_prefix = null;
 	public ?string $prefix = null;
 
 	public function __construct(private string $nickname)
@@ -18,19 +19,18 @@ class PrefixPlayer
 		Provider::getInstance()->asyncExecute("getPrefix", [$this->nickname], function ($prefix): void
 			{
 				$this->prefix = $prefix;
-				$this->update();
 			}
 		);
 	}
 
-	public function getPrefix(): string
+	public function getPrefix(): ?string
 	{
 		return $this->prefix;
 	}
 
-	public function setPrefix(string $prefix): void
+	public function setPrefix(?string $prefix): bool
 	{
-		if (str_starts_with($prefix, "!")) {
+		if ($prefix and str_starts_with($prefix, "!")) {
 			$prefix = PrefixManager::getInstance()->getReadyPrefix(mb_substr($prefix, 1));
 		}
 
@@ -38,28 +38,56 @@ class PrefixPlayer
 		Server::getInstance()->getPluginManager()->callEvent($event);
 
 		if ($event->isCancelled()) {
-			return;
+			return false;
 		}
 
+		$this->old_prefix = $this->prefix;
 		$this->prefix = $prefix;
 		$this->update();
+		return true;
 	}
 
 	public function update(): void
 	{
 		$player = Server::getInstance()->getPlayerExact($this->nickname);
 
-		if ($player and $this->prefix) {
-			$lang = Main::getInstance()->getLang();
-			$player->setNameTag($lang->translateString("nametag", [
-				"prefix" => $this->prefix . TextFormat::RESET,
-				"other" => $player->getNameTag()
-			]));
-			$player->setDisplayName($lang->translateString("displayname", [
-				"prefix" => $this->prefix . TextFormat::RESET,
-				"other" => $player->getDisplayName()
-			]));
+		if (!$player) {
+			return;
 		}
+
+		$lang = Main::getInstance()->getLang();
+		$prefix = $this->prefix . TextFormat::RESET;
+		$oldPrefix = $this->old_prefix . TextFormat::RESET;
+		$nametagFormats = explode("{%other}", $lang->get("nametag"));
+		$displayNameFormats = explode("{%other}", $lang->get("displayname"));
+
+		$nameTag = $player->getNameTag();
+		$displayName = $player->getDisplayName();
+
+		if ($this->prefix) {
+			$nameTag = $lang->translateString("nametag", [
+				"prefix" => $prefix,
+				"other" => $nameTag
+			]);
+
+			var_dump($nameTag);
+
+			$displayName = $lang->translateString("displayname", [
+				"prefix" => $prefix,
+				"other" => $displayName
+			]);
+		}
+
+		foreach ($nametagFormats as $format) {
+			$nameTag = str_replace(str_replace("{%prefix}", $oldPrefix, $format), "", $nameTag);
+		}
+
+		foreach ($displayNameFormats as $format) {
+			$displayName = str_replace(str_replace("{%prefix}", $oldPrefix, $format), "", $displayName);
+		}
+
+		$player->setNameTag($nameTag);
+		$player->setDisplayName($displayName);
 	}
 
 	public function updateChat(string $format): string

@@ -2,10 +2,7 @@
 
 namespace FortifiePE\Prefixes\providers;
 
-use Exception;
 use mysqli;
-use pocketmine\Server;
-use FortifiePE\Prefixes\Main;
 
 class MySQL extends DataBaseProvider
 {
@@ -56,7 +53,7 @@ class MySQL extends DataBaseProvider
 		return $data["prefix"] ?? null;
 	}
 
-	public function setPrefix(string $nickname, string $prefix): void
+	public function setPrefix(string $nickname, ?string $prefix): void
 	{
 		$nickname = strtolower($nickname);
 		$stmt = $this->db->prepare(self::SET_PREFIX);

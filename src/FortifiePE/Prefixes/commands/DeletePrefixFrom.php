@@ -1,0 +1,21 @@
+<?php
+
+namespace FortifiePE\Prefixes\commands;
+
+use FortifiePE\Prefixes\Main;
+use pocketmine\command\CommandSender;
+use pocketmine\command\PluginCommand;
+
+class DeletePrefixFrom extends PluginCommand
+{
+	public function __construct(Main $main)
+	{
+		parent::__construct("delprefixfrom", $main);
+		$this->setPermission("prefixes.admin");
+	}
+
+	public function execute(CommandSender $sender, string $commandLabel, array $args): bool
+	{
+		return true;
+	}
+}

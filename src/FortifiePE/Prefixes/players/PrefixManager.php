@@ -16,7 +16,7 @@ class PrefixManager
 
 	public function __construct() {
 		$this->setInstance($this);
-		$this->ready_prefixes = (new Config(Main::getInstance()->getDataFolder() . "ready_prefixes.yml"))->getAll();
+		$this->ready_prefixes = (new Config(Main::getInstance()->getDataFolder() . "prefixes.yml", Config::YAML))->getAll();
 	}
 
 	public function getPlayer(string $nickname): PrefixPlayer
@@ -41,10 +41,16 @@ class PrefixManager
 		return $this->players;
 	}
 
-	public function saveAll(): void
+	public function saveAll(bool $async = false): void
 	{
+		$provider = Provider::getInstance();
+
 		foreach ($this->getAll() as $nickname => $prefix) {
-			Provider::getInstance()->getDataBase()->setPrefix($nickname, $prefix->getPrefix());
+			if ($async) {
+				$provider->asyncExecute("setPrefix", [$nickname, $prefix->getPrefix()]);
+			} else {
+				$provider->getDataBase()->setPrefix($nickname, $prefix->getPrefix());
+			}
 		}
 	}
 }
