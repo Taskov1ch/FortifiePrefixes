@@ -7,13 +7,13 @@ use FortifiePE\Prefixes\commands\DeletePrefix;
 use FortifiePE\Prefixes\commands\DeletePrefixFrom;
 use FortifiePE\Prefixes\commands\SetPrefix;
 use FortifiePE\Prefixes\commands\SetPrefixTo;
-use FortifiePE\Prefixes\tasks\SaveTask;
-use pocketmine\lang\BaseLang;
-use pocketmine\plugin\PluginBase;
 use FortifiePE\Prefixes\listener\EventsListener;
 use FortifiePE\Prefixes\players\PrefixManager;
 use FortifiePE\Prefixes\providers\Provider;
+use FortifiePE\Prefixes\tasks\SaveTask;
 use FortifiePE\Prefixes\utils\SingletonTrait;
+use pocketmine\lang\BaseLang;
+use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase
 {

@@ -3,9 +3,9 @@
 namespace FortifiePE\Prefixes\tasks;
 
 use Closure;
+use FortifiePE\Prefixes\providers\Provider;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
-use FortifiePE\Prefixes\providers\Provider;
 
 class AsyncQueryToDB extends AsyncTask
 {

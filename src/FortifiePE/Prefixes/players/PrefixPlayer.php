@@ -2,11 +2,11 @@
 
 namespace FortifiePE\Prefixes\players;
 
-use pocketmine\Server;
-use pocketmine\utils\TextFormat;
 use FortifiePE\Prefixes\events\PrefixChangeEvent;
 use FortifiePE\Prefixes\Main;
 use FortifiePE\Prefixes\providers\Provider;
+use pocketmine\Server;
+use pocketmine\utils\TextFormat;
 
 class PrefixPlayer
 {

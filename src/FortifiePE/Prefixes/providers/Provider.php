@@ -11,7 +11,7 @@ use FortifiePE\Prefixes\utils\SingletonTrait;
 class Provider
 {
 	use SingletonTrait;
-	private DataBaseProvider $db;
+	private DataBase $db;
 
 	public function __construct(private array $config)
 	{

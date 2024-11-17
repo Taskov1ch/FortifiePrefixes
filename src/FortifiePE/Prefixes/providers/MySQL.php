@@ -4,11 +4,11 @@ namespace FortifiePE\Prefixes\providers;
 
 use mysqli;
 
-class MySQL extends DataBaseProvider
+class MySQL extends DataBase
 {
 	private mysqli $db;
 
-	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT PRIMARY KEY, prefix TEXT)";
+	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT, prefix TEXT)";
 	const CREATE_PLAYER = "INSERT IGNORE INTO prefixes (nickname) VALUES (?)";
 	const SET_PREFIX = "UPDATE prefixes SET prefix = ? WHERE nickname = ?";
 	const GET_PREFIX = "SELECT prefix FROM prefixes WHERE nickname = ? LIMIT 1";
@@ -19,6 +19,7 @@ class MySQL extends DataBaseProvider
 		string $username,
 		string $password
 	) {
+		var_dump(1);
 		$this->setInstance($this);
 		$this->db = new mysqli($host, $username, $password, $scheme);
 		$this->db->set_charset("utf8mb4");
@@ -27,7 +28,11 @@ class MySQL extends DataBaseProvider
 
 	protected function createTable(): void
 	{
+		var_dump(2);
 		$this->db->query(self::CREATE_TABLE);
+		if ($this->db->error) {
+			var_dump("Ошибка при создании таблицы:", $this->db->error);
+		}
 	}
 
 	public function createPlayer(string $nickname): void

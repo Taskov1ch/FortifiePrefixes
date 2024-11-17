@@ -46,7 +46,10 @@ class SetPrefix extends PluginCommand
 				return true;
 			}
 		} else {
-			if (strlen($prefix) >= Main::getInstance()->getConfig()->get("limit")) {
+			if (
+				strlen($prefix) >= Main::getInstance()->getConfig()->get("limit") and
+				!$sender->hasPermission("prefixes.admin")
+			) {
 				$sender->sendMessage($this->lang->translateString("setprefix.limit"));
 				return true;
 			}

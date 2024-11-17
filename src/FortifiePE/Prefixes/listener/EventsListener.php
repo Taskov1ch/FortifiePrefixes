@@ -2,13 +2,12 @@
 
 namespace FortifiePE\Prefixes\listener;
 
-use FortifiePE\Prefixes\events\PrefixChangeEvent;
+use FortifiePE\Prefixes\players\PrefixManager;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\Server;
-use FortifiePE\Prefixes\players\PrefixManager;
 use pocketmine\event\player\PlayerPreLoginEvent;
+use pocketmine\Server;
 
 class EventsListener implements Listener
 {

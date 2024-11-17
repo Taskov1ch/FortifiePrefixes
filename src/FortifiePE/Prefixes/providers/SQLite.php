@@ -5,12 +5,12 @@ namespace FortifiePE\Prefixes\providers;
 use SQLite3;
 use FortifiePE\Prefixes\Main;
 
-class SQLite extends DataBaseProvider
+class SQLite extends DataBase
 {
 	private string $path;
 	private SQLite3 $db;
 
-	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT PRIMARY KEY, prefix TEXT)";
+	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT, prefix TEXT)";
 	const CREATE_PLAYER = "INSERT OR IGNORE INTO prefixes (nickname) VALUES (?)";
 	const SET_PREFIX = "UPDATE prefixes SET prefix = ? WHERE nickname = ?";
 	const GET_PREFIX = "SELECT prefix FROM prefixes WHERE nickname = ? LIMIT 1";

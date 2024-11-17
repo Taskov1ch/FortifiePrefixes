@@ -5,7 +5,8 @@ main: FortifiePE\Prefixes\Main
 authors:
   - Taskov1ch
   - FortifiePE
-website: taskovich.pro
+website: https://taskovich.pro
+description: Плагин на систему префиксов (Специально для сообщества FortifieMix)
 load: POSTWORLD
 
 permissions:

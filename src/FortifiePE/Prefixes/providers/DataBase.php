@@ -4,7 +4,7 @@ namespace FortifiePE\Prefixes\providers;
 
 use FortifiePE\Prefixes\utils\SingletonTrait;
 
-abstract class DataBaseProvider
+abstract class DataBase
 {
 	use SingletonTrait;
 
