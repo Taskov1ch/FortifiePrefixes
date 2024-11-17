@@ -15,4 +15,8 @@ abstract class DataBase
 	abstract public function getPrefix(string $nickname): ?string;
 
 	abstract public function setPrefix(string $nickname, string $prefix): void;
+
+	abstract public function beginTransaction(): void;
+
+	abstract public function commit(): void;
 }

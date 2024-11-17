@@ -8,7 +8,7 @@ class MySQL extends DataBase
 {
 	private mysqli $db;
 
-	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT, prefix TEXT)";
+	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT UNIQUE, prefix TEXT)";
 	const CREATE_PLAYER = "INSERT IGNORE INTO prefixes (nickname) VALUES (?)";
 	const SET_PREFIX = "UPDATE prefixes SET prefix = ? WHERE nickname = ?";
 	const GET_PREFIX = "SELECT prefix FROM prefixes WHERE nickname = ? LIMIT 1";
@@ -60,5 +60,15 @@ class MySQL extends DataBase
 		$stmt->bind_param("ss", $prefix, $nickname);
 		$stmt->execute();
 		$stmt->close();
+	}
+
+	public function beginTransaction(): void
+	{
+		$this->db->begin_transaction();
+	}
+
+	public function commit(): void
+	{
+		$this->db->commit();
 	}
 }

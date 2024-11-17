@@ -10,7 +10,7 @@ class SQLite extends DataBase
 	private string $path;
 	private SQLite3 $db;
 
-	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT, prefix TEXT)";
+	const CREATE_TABLE = "CREATE TABLE IF NOT EXISTS prefixes (nickname TEXT UNIQUE, prefix TEXT)";
 	const CREATE_PLAYER = "INSERT OR IGNORE INTO prefixes (nickname) VALUES (?)";
 	const SET_PREFIX = "UPDATE prefixes SET prefix = ? WHERE nickname = ?";
 	const GET_PREFIX = "SELECT prefix FROM prefixes WHERE nickname = ? LIMIT 1";
@@ -24,7 +24,7 @@ class SQLite extends DataBase
 
 		$this->db->exec("PRAGMA synchronous = NORMAL");
 		$this->db->exec("PRAGMA journal_mode = WAL");
-		$this->db->exec("PRAGMA encoding = \"UTF-8\"");
+		$this->db->exec("PRAGMA encoding = 'UTF-8'");
 
 		$this->createTable();
 	}
@@ -64,6 +64,16 @@ class SQLite extends DataBase
 		$stmt->bindValue(2, $nickname);
 		$stmt->execute();
 		$stmt->close();
+	}
+
+	public function beginTransaction(): void
+	{
+		$this->db->exec("BEGIN TRANSACTION");
+	}
+
+	public function commit(): void
+	{
+		$this->db->exec("COMMIT");
 	}
 
 	public function getPath(): string

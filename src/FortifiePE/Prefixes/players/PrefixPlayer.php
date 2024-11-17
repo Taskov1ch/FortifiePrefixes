@@ -2,9 +2,11 @@
 
 namespace FortifiePE\Prefixes\players;
 
+use Closure;
 use FortifiePE\Prefixes\events\PrefixChangeEvent;
 use FortifiePE\Prefixes\Main;
 use FortifiePE\Prefixes\providers\Provider;
+use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
 
@@ -12,13 +14,16 @@ class PrefixPlayer
 {
 	public ?string $old_prefix = null;
 	public ?string $prefix = null;
+	private ?AsyncTask $task = null;
 
 	public function __construct(private string $nickname)
 	{
 		Provider::getInstance()->asyncExecute("createPlayer", [$this->nickname]);
-		Provider::getInstance()->asyncExecute("getPrefix", [$this->nickname], function ($prefix): void
+		$this->task = Provider::getInstance()->asyncExecute("getPrefix", [$this->nickname],
+			function ($prefix): void
 			{
 				$this->prefix = $prefix;
+				$this->task = null;
 			}
 		);
 	}
@@ -30,6 +35,11 @@ class PrefixPlayer
 
 	public function setPrefix(?string $prefix): bool
 	{
+		if ($this->task) {
+			$this->task->cancelRun();
+			$this->task = null;
+		}
+
 		if ($prefix and str_starts_with($prefix, "!")) {
 			$prefix = PrefixManager::getInstance()->getReadyPrefix(mb_substr($prefix, 1));
 		}
@@ -51,7 +61,7 @@ class PrefixPlayer
 	{
 		$player = Server::getInstance()->getPlayerExact($this->nickname);
 
-		if (!$player) {
+		if (!($this->prefix and $player)) {
 			return;
 		}
 

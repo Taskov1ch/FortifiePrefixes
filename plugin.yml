@@ -1,4 +1,4 @@
-name: FortifePrefixes
+name: FortifiePrefixes
 version: dev
 api: 3.0.0
 main: FortifiePE\Prefixes\Main

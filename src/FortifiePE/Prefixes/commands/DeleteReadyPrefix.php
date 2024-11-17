@@ -7,13 +7,13 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\PluginCommand;
 use pocketmine\lang\BaseLang;
 
-class AddReadyPreffix extends PluginCommand
+class DeleteReadyPreffix extends PluginCommand
 {
 	private BaseLang $lang;
 
 	public function __construct(Main $main)
 	{
-		parent::__construct("addreadyprfx", $main);
+		parent::__construct("delreadyprfx", $main);
 		$this->setPermission("prefixes.admin");
 		$this->lang = $main->getLang();
 	}

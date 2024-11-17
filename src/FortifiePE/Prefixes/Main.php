@@ -11,9 +11,12 @@ use FortifiePE\Prefixes\listener\EventsListener;
 use FortifiePE\Prefixes\players\PrefixManager;
 use FortifiePE\Prefixes\providers\Provider;
 use FortifiePE\Prefixes\tasks\SaveTask;
+use FortifiePE\Prefixes\tasks\UpdateTask;
 use FortifiePE\Prefixes\utils\SingletonTrait;
+use pocketmine\command\ConsoleCommandSender;
 use pocketmine\lang\BaseLang;
 use pocketmine\plugin\PluginBase;
+use pocketmine\Server;
 
 class Main extends PluginBase
 {
@@ -32,7 +35,7 @@ class Main extends PluginBase
 		$this->setInstance($this);
 
 		foreach ($this->getResources() as $resource) {
-			$this->saveResource($resource);
+			$this->saveResource($resource->getFilename());
 		}
 
 		$config = $this->getConfig();
@@ -41,7 +44,14 @@ class Main extends PluginBase
 		$this->provider = new Provider($config->get("database"));
 
 		$this->getServer()->getPluginManager()->registerEvents(new EventsListener(), $this);
-		$this->getScheduler()->scheduleRepeatingTask(new SaveTask(), 20 * 60 * $config->get("save"));
+		$this->getScheduler()->scheduleRepeatingTask(new SaveTask(), 5 * $config->get("save"));
+
+		$update = $config->get("update");
+
+		if ($update > 0) {
+			$this->getScheduler()->scheduleRepeatingTask(new UpdateTask(), $update);
+		}
+
 		$this->getServer()->getCommandMap()->registerAll($this->getName(), [
 			new AddReadyPreffix($this),
 			new DeletePrefix($this),
@@ -54,7 +64,7 @@ class Main extends PluginBase
 	public function onDisable(): void
 	{
 		$this->getLogger()->info("Сохранение префиксов...");
-		$this->manager->saveAll();
+		$this->manager->saveAll(false);
 	}
 
 	public function getManager(): PrefixManager

@@ -15,9 +15,9 @@ class SetPrefix extends PluginCommand
 
 	public function __construct(Main $main)
 	{
-		parent::__construct("setprefix", $main);
-		$this->setPermission("prefixes.default");
 		$this->lang = $main->getLang();
+		parent::__construct("setprfx", $main);
+		$this->setPermission("prefixes.default");
 	}
 
 	public function execute(CommandSender $sender, $commandLabel, array $args): bool

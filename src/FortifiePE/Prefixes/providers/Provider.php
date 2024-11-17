@@ -7,6 +7,7 @@ use FortifiePE\Prefixes\exceptions\ProviderNotFound;
 use FortifiePE\Prefixes\Main;
 use FortifiePE\Prefixes\tasks\AsyncQueryToDB;
 use FortifiePE\Prefixes\utils\SingletonTrait;
+use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 
 class Provider
@@ -47,7 +48,7 @@ class Provider
 		return $this->db;
 	}
 
-	public function asyncExecute(string $method, array $params, ?Closure $todo = null): void
+	public function asyncExecute(string $method, array $params, ?Closure $todo = null): AsyncTask
 	{
 		$config = $this->config;
 
@@ -55,8 +56,9 @@ class Provider
 			$config["sqlite"]["force_path"] = $this->db->getPath();
 		}
 
-		Server::getInstance()->getAsyncPool()->submitTask(
-			new AsyncQueryToDB($config, $method, $params, $todo)
-		);
+		$task = new AsyncQueryToDB($config, $method, $params, $todo);
+		Server::getInstance()->getAsyncPool()->submitTask($task);
+
+		return $task;
 	}
 }

@@ -1,1 +1,3 @@
-PePrefixes.code-workspace
+*.db*
+*.yml
+!plugin.yml

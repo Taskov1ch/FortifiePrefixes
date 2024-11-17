@@ -2,6 +2,8 @@
 
 namespace FortifiePE\Prefixes\players;
 
+use Closure;
+use FortifiePE\Prefixes\providers\SQLite;
 use pocketmine\utils\Config;
 use FortifiePE\Prefixes\Main;
 use FortifiePE\Prefixes\providers\Provider;
@@ -44,13 +46,17 @@ class PrefixManager
 	public function saveAll(bool $async = false): void
 	{
 		$provider = Provider::getInstance();
+		$db = $provider->getDataBase();
+		$db->beginTransaction();
 
 		foreach ($this->getAll() as $nickname => $prefix) {
 			if ($async) {
 				$provider->asyncExecute("setPrefix", [$nickname, $prefix->getPrefix()]);
 			} else {
-				$provider->getDataBase()->setPrefix($nickname, $prefix->getPrefix());
+				$db->setPrefix($nickname, $prefix->getPrefix());
 			}
 		}
+
+		$db->commit();
 	}
 }

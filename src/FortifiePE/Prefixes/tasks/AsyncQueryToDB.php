@@ -13,7 +13,7 @@ class AsyncQueryToDB extends AsyncTask
 		private array $config,
 		private string $method,
 		private array $params,
-		private ?Closure $todo // Сосать непоточность, сосать потокобезопасность!
+		private ?Closure $todo
 	) {}
 
 	public function onRun()
