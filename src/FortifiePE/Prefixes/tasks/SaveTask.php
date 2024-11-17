@@ -2,18 +2,11 @@
 
 namespace FortifiePE\Prefixes\tasks;
 
-use FortifiePE\Prefixes\Main;
 use FortifiePE\Prefixes\players\PrefixManager;
-use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\Task;
 
-class SaveTask extends PluginTask
+class SaveTask extends Task
 {
-
-	public function __construct(Main $main)
-	{
-		parent::__construct($main);
-	}
-
 	public function onRun($currentTick)
 	{
 		PrefixManager::getInstance()->saveAll(true);

@@ -70,8 +70,6 @@ class PrefixPlayer
 				"other" => $nameTag
 			]);
 
-			var_dump($nameTag);
-
 			$displayName = $lang->translateString("displayname", [
 				"prefix" => $prefix,
 				"other" => $displayName

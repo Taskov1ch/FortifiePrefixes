@@ -32,7 +32,7 @@ class Main extends PluginBase
 		$this->setInstance($this);
 
 		foreach ($this->getResources() as $resource) {
-			$this->saveResource($resource->getFilename());
+			$this->saveResource($resource);
 		}
 
 		$config = $this->getConfig();
@@ -41,7 +41,7 @@ class Main extends PluginBase
 		$this->provider = new Provider($config->get("database"));
 
 		$this->getServer()->getPluginManager()->registerEvents(new EventsListener(), $this);
-		$this->getServer()->getScheduler()->scheduleRepeatingTask(new SaveTask($this), 20 * 60 * $config->get("save"));
+		$this->getScheduler()->scheduleRepeatingTask(new SaveTask(), 20 * 60 * $config->get("save"));
 		$this->getServer()->getCommandMap()->registerAll($this->getName(), [
 			new AddReadyPreffix($this),
 			new DeletePrefix($this),

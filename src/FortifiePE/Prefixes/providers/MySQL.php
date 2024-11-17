@@ -19,7 +19,6 @@ class MySQL extends DataBase
 		string $username,
 		string $password
 	) {
-		var_dump(1);
 		$this->setInstance($this);
 		$this->db = new mysqli($host, $username, $password, $scheme);
 		$this->db->set_charset("utf8mb4");
@@ -28,11 +27,7 @@ class MySQL extends DataBase
 
 	protected function createTable(): void
 	{
-		var_dump(2);
 		$this->db->query(self::CREATE_TABLE);
-		if ($this->db->error) {
-			var_dump("Ошибка при создании таблицы:", $this->db->error);
-		}
 	}
 
 	public function createPlayer(string $nickname): void

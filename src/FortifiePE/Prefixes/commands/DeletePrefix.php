@@ -20,7 +20,7 @@ class DeletePrefix extends PluginCommand
 		$this->lang = $main->getLang();
 	}
 
-	public function execute(CommandSender $sender, string $commandLabel, array $args): bool
+	public function execute(CommandSender $sender, $commandLabel, array $args): bool
 	{
 		if (!$sender instanceof Player) {
 			return false;

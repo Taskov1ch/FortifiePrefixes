@@ -14,7 +14,7 @@ class SetPrefixTo extends PluginCommand
 		$this->setPermission("prefixes.admin");
 	}
 
-	public function execute(CommandSender $sender, string $commandLabel, array $args): bool
+	public function execute(CommandSender $sender, $commandLabel, array $args): bool
 	{
 		return true;
 	}
